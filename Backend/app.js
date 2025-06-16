@@ -2,27 +2,21 @@ const env = require('dotenv');
 env.config();
 const express = require('express');
 const app = express();
+const connectToDB = require('./db/db'); // Import the database connection function
+const userRoutes = require('./routes/user.routes'); // Import user routes
 
-const mongoose = require('mongoose');
+// Connect to the database
+connectToDB(); // Call the function to connect to the database
 
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 
-
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/sarthie';
-
-main().then(() => {
-    console.log('Connected to db');
-}).catch(err => {
-    console.log(err);
-    
-});
-
-async function main() {
-    await mongoose.connect(MONGO_URL);
-};
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
+
+app.use('/users', userRoutes); // Use user routes under the /users path
 
 
 
