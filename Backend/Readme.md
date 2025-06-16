@@ -1,5 +1,8 @@
 # User Registration Endpoint Documentation
 
+## Endpoint
+
+`POST /users/register`
 
 ## Description
 
