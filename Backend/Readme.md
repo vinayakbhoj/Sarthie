@@ -76,3 +76,83 @@ Content-Type: application/json
 ```
 
 ---
+
+## 2. Login User
+
+### Endpoint
+
+`POST /users/login`
+
+### Description
+
+Authenticates a user with email and password. Returns user data (excluding password) and a JWT authentication token if credentials are valid.
+
+### Request Body
+
+Send a JSON object with the following structure:
+
+```json
+{
+  "email": "john@example.com",   // Required, must be a valid email
+  "password": "secret123"        // Required, at least 6 characters
+}
+```
+
+### Status Codes
+
+- **200 OK**: Login successful. Returns user data and token.
+- **400 Bad Request**: Validation failed. Returns an array of error messages.
+- **401 Unauthorized**: Invalid email or password.
+
+### Example Request
+
+```http
+POST /users/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "secret123"
+}
+```
+
+### Example Success Response
+
+```json
+{
+  "user": {
+    "_id": "userObjectId",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john@example.com",
+    "socketId": null
+  },
+  "token": "JWT_TOKEN"
+}
+```
+
+### Example Error Response (Validation)
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid email",
+      "param": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+### Example Error Response (Invalid Credentials)
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+---
