@@ -156,3 +156,65 @@ Content-Type: application/json
 ```
 
 ---
+
+## 3. Get User Profile
+
+### Endpoint
+
+`GET /users/profile`
+
+### Description
+
+Returns the authenticated user's profile information. Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+### Headers
+
+- `Authorization: Bearer <JWT_TOKEN>` (if not using cookies)
+
+### Status Codes
+
+- **200 OK**: Returns the user's profile.
+- **401 Unauthorized**: Missing or invalid token.
+
+### Example Success Response
+
+```json
+{
+  "user": {
+    "_id": "userObjectId",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john@example.com",
+    "socketId": null
+  }
+}
+```
+
+---
+
+## 4. Logout User
+
+### Endpoint
+
+`GET /users/logout`
+
+### Description
+
+Logs out the authenticated user by blacklisting the current JWT token and clearing the authentication cookie. Requires a valid JWT token in the `Authorization` header or as a cookie.
+
+### Status Codes
+
+- **200 OK**: Logout successful.
+- **401 Unauthorized**: Missing or invalid token.
+
+### Example Success Response
+
+```json
+{
+  "message": "Logout successful"
+}
+```
+
+---
